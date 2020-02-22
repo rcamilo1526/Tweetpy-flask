@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Estudio estadistico</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/owl.carousel.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ionicons.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animate.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
+
+    <!-- Js -->
+    <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/min/waypoints.min.js"></script>
+    <script src="js/jquery.counterup.js"></script>
+
+    <!-- Google Map -->
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+    <script src="js/google-map-init.js"></script>
+    <script src="js/main.js"></script>
+
+  </head>
+  <body>
+
+
+    <!-- Header Start -->
+  <header>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <!-- header Nav Start -->
+          <nav class="navbar navbar-default">
+            <div class="container-fluid">
+              <!-- Brand and toggle get grouped for better mobile display -->
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                </button>
+                <a href="index.html">
+                  <img src="{{ url_for('static', filename='img/logo.png') }}">
+                </a>
+              </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                  <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/">Inicio</a></li>
+              <!--         <li><a href="work.html">.</a></li>
+                    <li><a href="#">.</a></li>
+                    <li><a href="#">.</a></li>
+                    <li><a href="/contact.html">Contacto</a></li> -->
+                  </ul>
+                </div><!-- /.navbar-collapse -->
+              </div><!-- /.container-fluid -->
+            </nav>
+          </div>
+        </div>
+      </div>
+    </header><!-- header close -->
+
+    <!-- Slider Start -->
+    <section id="slider">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-10 col-md-offset-2">
+            <div class="block">
+              <h1 class="animated fadeInUp">Estudio estadistico para <br> un nuevo sabor de jugo de frutas</h1>
+              <p class="animated fadeInUp">Esta aplicacion pretende desarrollar un estudio descriptivo sobre</br>
+                las preferencias sobre algunas frutas, para crear un nuevo sabor de jugo </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Wrapper Start -->
+    <section id="intro">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-7 col-sm-12">
+            <div class="block">
+              <div class="section-title">
+                <h2>Frutas con mas hashtags</h2>
+                <p>
+                  La muestra con algunos registros que se tomaron de twitter
+                  y de estos resultados se filtaron las que si eran frutas, ademas
+                  se seleccionaron las frutas que aparecieron mas de una vez.
+                </p>
+              </div>
+              <p>
+                Como no fue posible tomar grandes cantidades, se analizaron por partes
+                pequeñas y de estas se sacaron conclusiones para tener en cuenta sobre
+                la creacion del nuevo producto.
+              </p>
+            </div>
+          </div><!-- .col-md-7 close -->
+          <div class="col-md-5 col-sm-12">
+            <div class="block">
+              <img src='{{ graph1 }}'alt="Img">
+            </div>
+          </div><!-- .col-md-5 close -->
+        </div>
+      </div>
+    </section>
+    <section id="intro">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-7 col-sm-12">
+            <div class="block">
+              <div class="section-title">
+                <h2>Manzanas y Fresas</h2>
+                <p>
+                  Se muestra la gráfica de manzana contra fresas, teniendo en cuenta
+                  la cantidad de veces que fue escrito el hashtag en determinados días,
+                  esto nos sirve para ver lo que piensan las personas en esos días.
+                </p>
+              </div>
+              <p>
+                En conclusión estos datos muestran  que al final se tuvo un pico más alto
+              </p>
+            </div>
+          </div><!-- .col-md-7 close -->
+          <div class="col-md-5 col-sm-12">
+            <div class="block">
+              <img src='{{ graph2 }}'alt="Img">
+            </div>
+          </div><!-- .col-md-5 close -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to action Start -->
+    <section id="call-to-action">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="block">
+              <h2>¿Cual es el objetivo de este estudio?.</h2>
+              <p>El objetivo de la investigación era examinar los factores que
+                determinan el consumo de algunas frutas especificas, para una empresa que
+                desea crear un nuevo jugo con sabor a frutas.</p>
+            <!--  <a class="btn btn-default btn-call-to-action" href="#" >Tell Us Your Story</a> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Datos  -->
+    <section id="testimonial">
+      <div class="container">
+        <div class="row">
+          <div class="section-title text-center">
+            <h2>Descripción</h2>
+            <p>A continuación se observa el conjunto de datos obtenidos por un pequeño
+              número de valores descriptivos, donde se conocen detalles de lo que las personas
+            piensan y escriben en twitter</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="block">
+              <ul class="counter-box clearfix">
+                <li>
+                  <div class="block">
+                    <i class="ion-ios-compose-outline"></i>
+                    <h4 class="counter">{{media}}</h4>
+                    <span>Media</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="block">
+                    <i class="ion-ios-compose-outline"></i>
+                    <h4 class="counter">{{mediana}}</h4>
+                    <span>Mediana</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="block">
+                    <i class="ion-ios-compose-outline"></i>
+                    <h4 class="counter">{{moda}}</h4>
+                    <span>Moda</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="block">
+                    <i class="ion-ios-compose-outline"></i>
+                    <h4 class="counter">{{promedio}}</h4>
+                    <span>Varianza</span>
+                  </div>
+                </li>
+
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- footer Start -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="footer-manu">
+              <ul>
+                <li><a href="#">Sobre nosotros</a></li>
+                <li><a href="#">Contacto</a></li>
+              </ul>
+            </div>
+            <p>Creado por Diego Parra y Johan Ferrari Guerrero.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+    </body>
+</html>
