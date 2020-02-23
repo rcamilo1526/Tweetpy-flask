@@ -1,6 +1,7 @@
 from flask import Flask,render_template,request
 import twitter
 import numpy as np
+import scipy as stats
 import matplotlib.pyplot as plt
 app = Flask(__name__)
 archivo = open("dataframetable.html", 'r')
@@ -12,28 +13,31 @@ for i in textlist:
 @app.route('/send', methods=['GET','POST'])
 def send():
     if request.method == 'POST':
-        x=request.form['x']
-        y=int(request.form['y'])
+        x=request.form['x']#query
+        y=int(request.form['y'])#num tweets
         df=twitter.runall(x,y)
-        labels = list(df['source'].unique())
-        cant = list(df['source'].value_counts())
-        fig1, ax1 = plt.subplots()
-        ax1.pie(cant, labels=labels, autopct='%1.1f%%',
-                shadow=True, startangle=90)
-        ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
-
-        plt.savefig('static/images/foo.png')
-        z=np.mean(df['len'])
+        promedio=np.mean(df['len'])
+        mediana = np.median(df['Words'])
+        maximo=max(df.retweets)
+        # moda=stats.mode(df['sentiment'])[0][0]
+        # if moda==0:
+        #     sentiment='Neutras'
+        # elif moda==1:
+        #     sentiment='positivas'
+        # elif moda==-1:
+        #     sentiment='negativas'
         return render_template('dashboard.html',
-                                mediana=z)
+                                promedio=promedio,
+                               sentiment='neutro',
+                               mediana=mediana,
+                               maximo=maximo)
 
     return render_template('dashboard.html')
 
-@app.route('/')
+@app.route('/index.html')
 def dashboard():
 
-    return render_template('index.html',
-                           mediana='8415.24')
+    return render_template('index.html')
 
 @app.route('/tables.html')
 def tables():

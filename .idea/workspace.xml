@@ -31,11 +31,7 @@
       </list>
     </option>
   </component>
-  <component name="JupyterTrust" id="9bd39665-02be-471f-93a2-fe3a388e3ebd">
-    <option name="files">
-      <option value="pruebajinja2.ipynb" />
-    </option>
-  </component>
+  <component name="JupyterTrust" id="9bd39665-02be-471f-93a2-fe3a388e3ebd" />
   <component name="ProjectId" id="1XpBxoO74PeDXj0UlJXUcKGqjwx" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -107,6 +103,8 @@
       <workItem from="1582334434086" duration="8535000" />
       <workItem from="1582384255475" duration="5122000" />
       <workItem from="1582391834538" duration="1374000" />
+      <workItem from="1582394007738" duration="921000" />
+      <workItem from="1582424013941" duration="8725000" />
     </task>
     <servers />
   </component>
@@ -138,10 +136,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="277" y="75" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1582164705140" />
-    <state x="465" y="256" key="com.intellij.ide.util.TipDialog" timestamp="1582394178769">
+    <state x="465" y="256" key="com.intellij.ide.util.TipDialog" timestamp="1582424013874">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="465" y="256" key="com.intellij.ide.util.TipDialog/0.0.1536.864@0.0.1536.864" timestamp="1582394178769" />
+    <state x="465" y="256" key="com.intellij.ide.util.TipDialog/0.0.1536.864@0.0.1536.864" timestamp="1582424013874" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/flaskapps$Flask.coverage" NAME="Flask Coverage Results" MODIFIED="1581817135344" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />

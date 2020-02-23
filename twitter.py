@@ -5,6 +5,7 @@ from tweepy import OAuthHandler
 from tweepy import Stream
 import tweepy
 from textblob import TextBlob
+import nltk
 
 CONSUMER_KEY = "LJpGAdgt9QURuUl3KiR0DNP9d"
 CONSUMER_SECRET = "azsenE7EcfOXodDkE64WuTuDZKZoV5cYzPhnAAr44Pb6rCHgJS"
@@ -46,7 +47,7 @@ class TwitterExtract():
             home_timeline_tweets.append(tweet)
         return home_timeline_tweets
 
-    def searcht(self,api, query, max_tweets):
+    def searcht(self, api, query, max_tweets):
         searched_tweets = []
         last_id = -1
         geocode = '4,-74,2000km'
@@ -127,9 +128,12 @@ class TweetAnalyzer():
     def clean_tweet(self, tweet):
         return ' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t])|(\w+:\/\/\S+)", " ", tweet).split())
 
+    def wordCounter(self,tweet):
+        return len(nltk.word_tokenize(str(tweet), language='spanish'))
+
     def analyze_sentiment(self, tweet):
         analysis = TextBlob(self.clean_tweet(tweet))
-
+        # eng = analysis.translate(to='en')
         if analysis.sentiment.polarity > 0:
             return 1
         elif analysis.sentiment.polarity == 0:
@@ -150,17 +154,20 @@ class TweetAnalyzer():
         return df
 
 
+
+
+
 def runall(query, maxt):
     twitter_extract = TwitterExtract()
     tweet_analyzer = TweetAnalyzer()
 
     api = twitter_extract.get_twitter_client_api()
 
-    tweets = twitter_extract.searcht(api,query, maxt)
+    tweets = twitter_extract.searcht(api, query, maxt)
 
     df = tweet_analyzer.tweets_to_data_frame(tweets)
     df['sentiment'] = np.array([tweet_analyzer.analyze_sentiment(tweet) for tweet in df['tweets']])
-
+    df['Words'] = df['tweets'].apply(tweet_analyzer.wordCounter)
     labels = list(df['source'].unique())
     cant = list(df['source'].value_counts())
     fig1, ax1 = plt.subplots()
