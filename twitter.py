@@ -6,7 +6,12 @@ from tweepy import Stream
 import tweepy
 from textblob import TextBlob
 import nltk
-
+import string
+from nltk.corpus import stopwords
+from datetime import datetime
+now = datetime.now()
+import requests
+filenames=now.strftime('%Y_%m_%d_%H_%M')
 CONSUMER_KEY = "LJpGAdgt9QURuUl3KiR0DNP9d"
 CONSUMER_SECRET = "azsenE7EcfOXodDkE64WuTuDZKZoV5cYzPhnAAr44Pb6rCHgJS"
 ACCESS_TOKEN = "779531845256044545-WLJ1BGlMxeVolPnSKbiTfS2GrXe0ZyC"
@@ -50,7 +55,7 @@ class TwitterExtract():
     def searcht(self, api, query, max_tweets):
         searched_tweets = []
         last_id = -1
-        geocode = '4,-74,2000km'
+        geocode = '5,-74,500km'
         while len(searched_tweets) < max_tweets:
             count = max_tweets - len(searched_tweets)
             try:
@@ -131,9 +136,23 @@ class TweetAnalyzer():
     def wordCounter(self,tweet):
         return len(nltk.word_tokenize(str(tweet), language='spanish'))
 
+
+    def trastalteToEng(self,tweet):
+        # url = 'http://translate.google.com/translate_a/t'
+        # params = {
+        #     "text":tweet,
+        #     "sl": "es",
+        #     "tl": "en",
+        #     "client": "p"
+        # }
+        # engjo=requests.get(url, params=params).content
+        totraslate=TextBlob(self.clean_tweet(tweet))
+        eng = totraslate.translate(to='en')
+        engjo = ''.join(eng)
+        return engjo
+
     def analyze_sentiment(self, tweet):
         analysis = TextBlob(self.clean_tweet(tweet))
-        # eng = analysis.translate(to='en')
         if analysis.sentiment.polarity > 0:
             return 1
         elif analysis.sentiment.polarity == 0:
@@ -156,8 +175,30 @@ class TweetAnalyzer():
 
 
 
+    def cleanTweetF(self,df):
+        union = ' '.join(df.tweets)
+        tokens = nltk.word_tokenize(union, language='spanish')
+        punctuations = list(string.punctuation)
+        clean_tokens = tokens[:]
+        sr = stopwords.words('spanish')
+        for token in tokens:
+            if token in sr:
+                clean_tokens.remove(token)
+            if token in punctuations:
+                clean_tokens.remove(token)
+            if token == 'https':
+                clean_tokens.remove(token)
+            if token.startswith('//t'):
+                clean_tokens.remove(token)
+            if token == 'RT':
+                clean_tokens.remove(token)
+        cleaned = " ".join(clean_tokens)
+        all = nltk.word_tokenize(cleaned, language='spanish')
+        return all
+
 
 def runall(query, maxt):
+
     twitter_extract = TwitterExtract()
     tweet_analyzer = TweetAnalyzer()
 
@@ -166,14 +207,24 @@ def runall(query, maxt):
     tweets = twitter_extract.searcht(api, query, maxt)
 
     df = tweet_analyzer.tweets_to_data_frame(tweets)
-    df['sentiment'] = np.array([tweet_analyzer.analyze_sentiment(tweet) for tweet in df['tweets']])
-    df['Words'] = df['tweets'].apply(tweet_analyzer.wordCounter)
-    labels = list(df['source'].unique())
-    cant = list(df['source'].value_counts())
-    fig1, ax1 = plt.subplots()
-    ax1.pie(cant, labels=labels, autopct='%1.1f%%',
-            shadow=True, startangle=90)
-    ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
 
-    plt.savefig('static/images/foo.png')
+    df['Words'] = df['tweets'].apply(tweet_analyzer.wordCounter)
+    df['English'] = np.array([tweet_analyzer.trastalteToEng(tweet) for tweet in df['tweets']])
+    df['sentiment'] = np.array([tweet_analyzer.analyze_sentiment(tweet) for tweet in df['English']])
+    # freq
+    freq = nltk.FreqDist(tweet_analyzer.cleanTweetF(df))
+    plot = freq.plot(20, cumulative=False)
+    fig = plot.get_figure()
+    # fig.close()
+    fig.figsize=[6.4, 4.8]
+    fig.savefig("static/graphics/freq.png")
+    # pie matplot
+    # labels = list(df['source'].unique())
+    # cant = list(df['source'].value_counts())
+    # fig1, ax1 = plt.subplots()
+    # ax1.pie(cant, labels=labels, autopct='%1.1f%%',
+    #         shadow=True, startangle=90)
+    # ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+    #
+    # plt.savefig('static/images/foo.png')
     return df

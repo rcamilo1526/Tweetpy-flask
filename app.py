@@ -1,17 +1,21 @@
 from flask import Flask,render_template,request
 import twitter
 import numpy as np
-import scipy as stats
+import scipy.stats as stats
+import graphics
+from bokeh.plotting import save
 import matplotlib.pyplot as plt
 app = Flask(__name__)
-archivo = open("dataframetable.html", 'r')
-textlist= archivo.readlines()
-archivo.close()
-text=''
-for i in textlist:
-    text=text+i
+# def sentimiento(df):
+#
+#     return [neutros,positivos,negativos]
+#
+# files=twitter.filenames
+# filename='graphics/{file}.png'.format(file=files)
+# img="{{ url_for('static', filename={file}) }}".format(file=filename)
 @app.route('/send', methods=['GET','POST'])
 def send():
+
     if request.method == 'POST':
         x=request.form['x']#query
         y=int(request.form['y'])#num tweets
@@ -19,18 +23,29 @@ def send():
         promedio=np.mean(df['len'])
         mediana = np.median(df['Words'])
         maximo=max(df.retweets)
-        # moda=stats.mode(df['sentiment'])[0][0]
-        # if moda==0:
-        #     sentiment='Neutras'
-        # elif moda==1:
-        #     sentiment='positivas'
-        # elif moda==-1:
-        #     sentiment='negativas'
+        pie=graphics.pieChart(df)
+        save(pie)
+        if df['sentiment'].value_counts()[0]:
+            neutros = df['sentiment'].value_counts()[0]
+        else:
+            neutros = 0
+        if df['sentiment'].value_counts()[1]:
+            positivos = df['sentiment'].value_counts()[1]
+        else:
+            positivos = 0
+        if df['sentiment'].value_counts()[-1]:
+            negativos = df['sentiment'].value_counts()[-1]
+        else:
+            negativos = 0
         return render_template('dashboard.html',
                                 promedio=promedio,
-                               sentiment='neutro',
+                               # sentiment=sentiment,
                                mediana=mediana,
-                               maximo=maximo)
+                               maximo=maximo,
+                               positivos=positivos,
+                               negativos=negativos,
+                               neutros=neutros,
+                               query=x)
 
     return render_template('dashboard.html')
 
@@ -42,7 +57,8 @@ def dashboard():
 @app.route('/tables.html')
 def tables():
 
-    return render_template('tables.html',tt=text)
+    return render_template('tables.html')
 
 if __name__ == '__main__':
+    app.debug = True
     app.run()
