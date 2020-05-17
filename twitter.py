@@ -12,10 +12,10 @@ from datetime import datetime
 now = datetime.now()
 import requests
 filenames=now.strftime('%Y_%m_%d_%H_%M')
-CONSUMER_KEY = "LJpGAdgt9QURuUl3KiR0DNP9d"
-CONSUMER_SECRET = "azsenE7EcfOXodDkE64WuTuDZKZoV5cYzPhnAAr44Pb6rCHgJS"
-ACCESS_TOKEN = "779531845256044545-WLJ1BGlMxeVolPnSKbiTfS2GrXe0ZyC"
-ACCESS_TOKEN_SECRET = "Yxc76sIfx1UPPaUtQV1xPzW2o10ymY6g1BxuMuenKIkPr"
+CONSUMER_KEY = "*"
+CONSUMER_SECRET = "*"
+ACCESS_TOKEN = "*"
+ACCESS_TOKEN_SECRET = "*"
 
 import matplotlib.pyplot as plt
 import numpy as np
